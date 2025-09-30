@@ -1,29 +1,18 @@
+// client/src/pages/Dashboard.jsx
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { axiosInstance } from '../api';
 import '../styles/dashboard.css';
 import { toast } from 'react-toastify';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const companies = ['Google', 'Amazon', 'Infosys', 'TCS', 'Flipkart', 'Zomato', 'Microsoft', 'Adobe', 'Paytm', 'Swiggy'];
-  const [job, setJob] = useState({ company: '', position: '', status: 'Applied',source:'' });
-  const [jobs, setJobs] = useState([]);
+  const jobTitles = ['Frontend Developer', 'Backend Developer', 'Full Stack Engineer', 'Software Engineer', 'Product Manager', 'UI/UX Designer', 'QA Analyst', 'DevOps Engineer', 'Data Scientist', 'Mobile App Developer', 'Technical Support Engineer', 'Business Analyst'];
   const sources = ['LinkedIn', 'Naukri', 'Company Website', 'Referral', 'Indeed', 'Other'];
- const jobTitles = [
-  'Frontend Developer',
-  'Backend Developer',
-  'Full Stack Engineer',
-  'Software Engineer',
-  'Product Manager',
-  'UI/UX Designer',
-  'QA Analyst',
-  'DevOps Engineer',
-  'Data Scientist',
-  'Mobile App Developer',
-  'Technical Support Engineer',
-  'Business Analyst',
-];
+
+  const [job, setJob] = useState({ company: '', position: '', status: 'Applied', source: '' });
+  const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('All');
   const [page, setPage] = useState(1);
@@ -36,39 +25,31 @@ const Dashboard = () => {
     Rejected: '❌',
   };
 
-  // 🔄 Fetch jobs from backend with filters and pagination
   const fetchJobs = async () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user?.token) return navigate('/login');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user?.token) return navigate('/login');
 
-  const config = {
-    headers: { Authorization: `Bearer ${user.token}` },
+    const config = {
+      headers: { Authorization: `Bearer ${user.token}` },
+    };
+
+    try {
+      const res = await axiosInstance.get(`/api/jobs?page=${page}&limit=5&search=${search}&status=${filter}`, config);
+      setJobs((prev) => {
+        const newJobs = res.data.jobs.filter((j) => !prev.some((p) => p._id === j._id));
+        return [...prev, ...newJobs];
+      });
+      setHasMore(jobs.length + res.data.jobs.length < res.data.total);
+    } catch (err) {
+      toast.error('Failed to fetch jobs');
+    }
   };
 
-  try {
-    const res = await axios.get(
-      `http://localhost:5000/api/jobs?page=${page}&limit=5&search=${search}&status=${filter}`,
-      config
-    );
-
-    // ✅ Prevent duplicate jobs from being added
-    setJobs((prev) => {
-      const newJobs = res.data.jobs.filter((j) => !prev.some((p) => p._id === j._id));
-      return [...prev, ...newJobs];
-    });
-
-    setHasMore(jobs.length + res.data.jobs.length < res.data.total);
-  } catch (err) {
-    toast.error('Failed to fetch jobs');
-  }
-};
-  // 🔁 Fetch jobs when page changes
   useEffect(() => {
     fetchJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  // 🔄 Reset jobs when search or filter changes
   useEffect(() => {
     setJobs([]);
     setPage(1);
@@ -80,8 +61,6 @@ const Dashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 🔒 Client-side validation
     if (!job.company.trim() || !job.position.trim()) {
       toast.error('Company and Position are required');
       return;
@@ -95,17 +74,19 @@ const Dashboard = () => {
     try {
       let res;
       if (job._id) {
-        res = await axios.put(`http://localhost:5000/api/jobs/${job._id}`, job, config);
+        res = await axiosInstance.put(`/api/jobs/${job._id}`, job, config);
         toast.success('Job updated');
       } else {
-        res = await axios.post('http://localhost:5000/api/jobs', job, config);
+        res = await axiosInstance.post('/api/jobs', job, config);
         toast.success('Job added');
       }
-     setJobs((prev) => {
-  const exists = prev.some((j) => j._id === res.data._id);
-  return exists ? prev : [res.data, ...prev];
-});
-      setJob({ company: '', position: '', status: 'Applied' });
+
+      setJobs((prev) => {
+        const exists = prev.some((j) => j._id === res.data._id);
+        return exists ? prev : [res.data, ...prev];
+      });
+
+      setJob({ company: '', position: '', status: 'Applied', source: '' });
     } catch (err) {
       toast.error('Failed to save job');
     }
@@ -118,7 +99,7 @@ const Dashboard = () => {
     };
 
     try {
-      await axios.delete(`http://localhost:5000/api/jobs/${id}`, config);
+      await axiosInstance.delete(`/api/jobs/${id}`, config);
       setJobs(jobs.filter((j) => j._id !== id));
       toast.success('Job deleted');
     } catch (err) {
@@ -131,6 +112,7 @@ const Dashboard = () => {
       company: jobToEdit.company,
       position: jobToEdit.position,
       status: jobToEdit.status,
+      source: jobToEdit.source,
       _id: jobToEdit._id,
     });
     setJobs(jobs.filter((j) => j._id !== jobToEdit._id));
@@ -160,57 +142,34 @@ const Dashboard = () => {
       </header>
 
       <form onSubmit={handleSubmit} className="job-form">
-        <input
-  list="company-list"
-  name="company"
-  placeholder="Company Name"
-  value={job.company}
-  onChange={handleChange}
-  required
-/>
-<datalist id="company-list">
-  {companies.map((c) => (
-    <option key={c} value={c} />
-  ))}
-</datalist>
-      <input
-  list="position-list"
-  name="position"
-  placeholder="Role / Position"
-  value={job.position}
-  onChange={handleChange}
-  required
-/>
-<datalist id="position-list">
-  {jobTitles.map((title) => (
-    <option key={title} value={title} />
-  ))}
-</datalist>
-       <select name="status" value={job.status} onChange={handleChange}>
-  <option>Applied</option>
-  <option>Interview</option>
-  <option>Offer</option>
-  <option>Rejected</option>
-</select>
+        <input list="company-list" name="company" placeholder="Company Name" value={job.company} onChange={handleChange} required />
+        <datalist id="company-list">
+          {companies.map((c) => <option key={c} value={c} />)}
+        </datalist>
 
-<select name="source" value={job.source} onChange={handleChange} required>
-  <option value="">Select Source</option>
-  {sources.map((s) => (
-    <option key={s} value={s}>{s}</option>
-  ))}
-</select>
+        <input list="position-list" name="position" placeholder="Role / Position" value={job.position} onChange={handleChange} required />
+        <datalist id="position-list">
+          {jobTitles.map((title) => <option key={title} value={title} />)}
+        </datalist>
 
-<br />
-<button type="submit">{job._id ? 'Update Job' : 'Add Job'}</button>
+        <select name="status" value={job.status} onChange={handleChange}>
+          <option>Applied</option>
+          <option>Interview</option>
+          <option>Offer</option>
+          <option>Rejected</option>
+        </select>
+
+        <select name="source" value={job.source} onChange={handleChange} required>
+          <option value="">Select Source</option>
+          {sources.map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+
+        <br />
+        <button type="submit">{job._id ? 'Update Job' : 'Add Job'}</button>
       </form>
 
       <div className="dashboard-filters">
-        <input
-          type="text"
-          placeholder="Search by company or role"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <input type="text" placeholder="Search by company or role" value={search} onChange={(e) => setSearch(e.target.value)} />
         <select value={filter} onChange={(e) => setFilter(e.target.value)}>
           <option>All</option>
           <option>Applied</option>

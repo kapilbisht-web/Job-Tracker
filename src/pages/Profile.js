@@ -1,7 +1,8 @@
+// client/src/pages/Profile.jsx
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { axiosInstance } from '../api';
 import '../styles/profile.css';
 
 const Profile = () => {
@@ -18,7 +19,7 @@ const Profile = () => {
       };
 
       try {
-        const res = await axios.get('http://localhost:5000/api/auth/profile', config);
+        const res = await axiosInstance.get('/api/auth/profile', config);
         setProfile(res.data);
       } catch (err) {
         toast.error('Failed to load profile');
@@ -45,9 +46,10 @@ const Profile = () => {
       <button onClick={handleLogout} className="logout-btn">
         Logout
       </button>
+
       <button onClick={() => navigate('/dashboard')} className="back-btn">
-  Back to Dashboard
-</button>
+        Back to Dashboard
+      </button>
     </div>
   );
 };

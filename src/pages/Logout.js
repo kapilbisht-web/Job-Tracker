@@ -1,7 +1,8 @@
+// client/src/pages/Logout.jsx
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import { axiosInstance } from '../api';
 
 const Logout = () => {
   const navigate = useNavigate();
@@ -12,8 +13,8 @@ const Logout = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user?.token) {
-          await axios.post(
-            'http://localhost:5000/api/auth/logout',
+          await axiosInstance.post(
+            '/api/auth/logout',
             {},
             {
               headers: {

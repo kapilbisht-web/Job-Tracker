@@ -1,14 +1,15 @@
+// client/src/pages/Register.jsx
 import { useState } from 'react';
-import axios from 'axios';
-import '../styles/auth.css';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // 👁️ Import icons
+import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { axiosInstance } from '../api';
+import '../styles/auth.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [showPassword, setShowPassword] = useState(false); // 👁️ Toggle state
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,7 +29,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', form);
+      await axiosInstance.post('/api/auth/register', form);
       toast.success('Registration successful! Please log in.');
       navigate('/login');
     } catch (err) {
@@ -41,8 +42,21 @@ const Register = () => {
     <div className="auth-page register-page">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} required />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
+        <input
+          name="name"
+          placeholder="Name"
+          value={form.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
 
         <div className="password-wrapper">
           <input

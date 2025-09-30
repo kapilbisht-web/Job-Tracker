@@ -1,7 +1,8 @@
+// client/src/pages/EditProfile.jsx
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { axiosInstance } from '../api';
 import '../styles/profile.css';
 
 const EditProfile = () => {
@@ -18,7 +19,7 @@ const EditProfile = () => {
       };
 
       try {
-        const res = await axios.get('http://localhost:5000/api/auth/profile', config);
+        const res = await axiosInstance.get('/api/auth/profile', config);
         setFormData({ name: res.data.name, email: res.data.email });
       } catch (err) {
         toast.error('Failed to load profile');
@@ -40,7 +41,7 @@ const EditProfile = () => {
     };
 
     try {
-      await axios.put('http://localhost:5000/api/auth/profile', formData, config);
+      await axiosInstance.put('/api/auth/profile', formData, config);
       toast.success('Profile updated');
       navigate('/dashboard');
     } catch (err) {
