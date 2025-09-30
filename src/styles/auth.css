@@ -1,0 +1,74 @@
+.auth-page {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.auth-page h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+.auth-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-page input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #888;
+}
+.eye-icon:hover {
+  color: #333;
+}
+.auth-page input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.auth-page button {
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.login-page h2 {
+  color: #007bff;
+}
+
+.register-page h2 {
+  color: #28a745;
+}
+
+.auth-page button:hover {
+  background-color: #0056b3;
+}
