@@ -42,7 +42,7 @@ const AppRouter = () => {
 
 export default function WrappedRouter() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename ="/Job-Tracker">
       <AppRouter />
     </BrowserRouter>
   );
