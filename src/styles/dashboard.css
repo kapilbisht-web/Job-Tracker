@@ -1,0 +1,154 @@
+.dashboard-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.logout-btn {
+  margin-top: 2rem;
+  padding: 10px 20px;
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.logout-btn:hover {
+  background-color: #d9363e;
+}
+
+.job-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.job-form input,
+.job-form select {
+  padding: 0.5rem;
+  width: 200px;
+}
+
+@media (max-width: 600px) {
+  .job-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .job-form input,
+  .job-form select {
+    width: 90%;
+  }
+
+  .dashboard-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dashboard-filters input,
+  .dashboard-filters select {
+    width: 90%;
+  }
+
+  .job-card {
+    width: 90%;
+  }
+}
+.job-form input,
+.job-form select {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  width: 200px;
+}
+
+.job-form button {
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.job-form button:hover {
+  background-color: #1474d4;
+}
+
+.job-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.job-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.job-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.job-actions button {
+  transition: background-color 0.2s ease;
+}
+.profile-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.form-group {
+  margin-bottom: 12px;
+}
+.job-card {
+  width: 300px;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: left;
+  background-color: #f9f9f9;
+}
+
+.job-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 10px;
+}
+.dashboard-filters {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dashboard-filters input,
+.dashboard-filters select {
+  padding: 0.5rem;
+  width: 200px;
+}
+
+.job-stats {
+  margin-top: 2rem;
+  text-align: center;
+  background-color: #f0f8ff;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.job-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+.job-actions button:hover {
+  background-color: #e0e0e0;
+}
