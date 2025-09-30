@@ -20,22 +20,16 @@ const AppRouter = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
-        />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/dashboard"
-          element={user ? <Dashboard /> : <Navigate to="/login" />}
-        />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/profile" element={<Profile />} />
-         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      <ToastContainer position="top-right" autoClose={3000} />
+  <Route path="/" element={user ? <Navigate to="dashboard" /> : <Navigate to="login" />} />
+  <Route path="register" element={<Register />} />
+  <Route path="login" element={<Login />} />
+  <Route path="dashboard" element={user ? <Dashboard /> : <Navigate to="login" />} />
+  <Route path="logout" element={<Logout />} />
+  <Route path="profile" element={<Profile />} />
+  <Route path="edit-profile" element={<EditProfile />} />
+  <Route path="*" element={<Navigate to="/" />} />
+</Routes>
+<ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 };
