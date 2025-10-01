@@ -1,4 +1,3 @@
-// client/src/pages/Profile.jsx
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -12,7 +11,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (!user?.token) return navigate('/login');
+      if (!user?.token) return navigate('login'); // ✅ Changed to relative path
 
       const config = {
         headers: { Authorization: `Bearer ${user.token}` },
@@ -29,8 +28,8 @@ const Profile = () => {
     fetchProfile();
   }, [navigate]);
 
-  const handleLogout = () => navigate('/logout');
-  const handleEditProfile = () => navigate('/edit-profile');
+  const handleLogout = () => navigate('logout'); // ✅ Changed
+  const handleEditProfile = () => navigate('edit-profile'); // ✅ Changed
 
   return (
     <div className="profile-container">
@@ -47,7 +46,7 @@ const Profile = () => {
         Logout
       </button>
 
-      <button onClick={() => navigate('/dashboard')} className="back-btn">
+      <button onClick={() => navigate('dashboard')} className="back-btn"> {/* ✅ Changed */}
         Back to Dashboard
       </button>
     </div>

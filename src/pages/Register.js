@@ -1,6 +1,5 @@
-// client/src/pages/Register.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // ✅ Added Link
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { axiosInstance } from '../api';
@@ -31,7 +30,7 @@ const Register = () => {
     try {
       await axiosInstance.post('/api/auth/register', form);
       toast.success('Registration successful! Please log in.');
-      navigate('/login');
+      navigate('login'); // ✅ Changed to relative path
     } catch (err) {
       const message = err.response?.data?.message || 'Registration failed';
       toast.error(message);
@@ -74,7 +73,7 @@ const Register = () => {
 
         <button type="submit">Sign Up</button>
         <p style={{ textAlign: 'center' }}>
-          Already have an account? <a href="/login">Log in</a>
+          Already have an account? <Link to="login">Log in</Link> {/* ✅ Fixed */}
         </p>
       </form>
     </div>

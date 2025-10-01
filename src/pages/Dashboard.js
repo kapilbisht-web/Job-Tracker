@@ -1,9 +1,10 @@
 // client/src/pages/Dashboard.jsx
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { axiosInstance } from '../api';
 import '../styles/dashboard.css';
 import { toast } from 'react-toastify';
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -136,10 +137,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h2>Welcome to Job Tracker Dashboard</h2>
-        <p>Track your job applications, filter them, and view stats.</p>
-        <a href="/profile" className="profile-link">Go to Profile</a>
-      </header>
+  <h2>Welcome to Job Tracker Dashboard</h2>
+  <p>Track your job applications, filter them, and view stats.</p>
+  <Link to="profile" className="profile-link">Go to Profile</Link> {/* ✅ Fixed */}
+</header>
 
       <form onSubmit={handleSubmit} className="job-form">
         <input list="company-list" name="company" placeholder="Company Name" value={job.company} onChange={handleChange} required />

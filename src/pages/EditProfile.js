@@ -1,4 +1,3 @@
-// client/src/pages/EditProfile.jsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -12,7 +11,7 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (!user?.token) return navigate('/login');
+      if (!user?.token) return navigate('login'); // ✅ Changed to relative path
 
       const config = {
         headers: { Authorization: `Bearer ${user.token}` },
@@ -43,7 +42,7 @@ const EditProfile = () => {
     try {
       await axiosInstance.put('/api/auth/profile', formData, config);
       toast.success('Profile updated');
-      navigate('/dashboard');
+      navigate('dashboard'); // ✅ Changed to relative path
     } catch (err) {
       toast.error('Failed to update profile');
     }

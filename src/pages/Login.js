@@ -1,6 +1,5 @@
-// client/src/pages/Login.jsx
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // ✅ Added Link
 import { toast } from 'react-toastify';
 import { axiosInstance } from '../api';
 import '../styles/auth.css';
@@ -20,7 +19,7 @@ const Login = () => {
       console.log('Login form:', form);
       localStorage.setItem('user', JSON.stringify(res.data));
       toast.success(`Welcome back, ${res.data.name}!`);
-      setTimeout(() => navigate('/dashboard'), 100);
+      setTimeout(() => navigate('dashboard'), 100); // ✅ Changed to relative path
     } catch (err) {
       toast.error(err.response?.data?.message || 'Login failed');
       console.error(err);
@@ -49,7 +48,7 @@ const Login = () => {
         />
         <button type="submit">Log In</button>
         <p style={{ textAlign: 'center' }}>
-          New here? <a href="/register">Sign up</a>
+          New here? <Link to="register">Sign up</Link> {/* ✅ Fixed */}
         </p>
       </form>
     </div>

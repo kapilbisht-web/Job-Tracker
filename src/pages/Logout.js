@@ -1,4 +1,3 @@
-// client/src/pages/Logout.jsx
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -31,7 +30,7 @@ const Logout = () => {
       localStorage.removeItem('jobs');
       localStorage.removeItem('search');
       toast.success('You have been logged out');
-      navigate('/login');
+      navigate('login'); // ✅ Changed to relative path
     };
 
     if (!hasLoggedOut.current) {
