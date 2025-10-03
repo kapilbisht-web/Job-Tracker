@@ -1,10 +1,9 @@
 // client/src/pages/Dashboard.jsx
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { axiosInstance } from '../api';
 import '../styles/dashboard.css';
 import { toast } from 'react-toastify';
-
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -57,6 +56,7 @@ const Dashboard = () => {
   }, [search, filter]);
 
   const handleLogout = () => navigate('/logout');
+  const handleResumeMatch = () => navigate('/resume-match');
 
   const handleChange = (e) => setJob({ ...job, [e.target.name]: e.target.value });
 
@@ -137,10 +137,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-  <h2>Welcome to Job Tracker Dashboard</h2>
-  <p>Track your job applications, filter them, and view stats.</p>
-  <Link to="profile" className="profile-link">Go to Profile</Link> {/* ✅ Fixed */}
-</header>
+        <h2>Welcome to Job Tracker Dashboard</h2>
+        <p>Track your job applications, filter them, and view stats.</p>
+        <Link to="/profile" className="profile-link">Go to Profile</Link>
+      </header>
 
       <form onSubmit={handleSubmit} className="job-form">
         <input list="company-list" name="company" placeholder="Company Name" value={job.company} onChange={handleChange} required />
@@ -212,9 +212,18 @@ const Dashboard = () => {
         <p>Rejected: {stats.Rejected}</p>
       </div>
 
+      <div className="resume-match-section">
+        <h3>🧠 Resume Match</h3>
+        <p>Compare your resume with job descriptions to see how well you match.</p>
+        <button onClick={handleResumeMatch} className="resume-match-btn">
+          Go to Resume Match
+        </button>
+      </div>
+
       <button onClick={handleLogout} className="logout-btn">
         Logout
       </button>
+      
     </div>
   );
 };

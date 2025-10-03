@@ -1,12 +1,37 @@
+/* Container */
 .dashboard-container {
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
 }
 
+/* Header */
 .dashboard-header {
+  text-align: center;
   margin-bottom: 2rem;
 }
 
+.dashboard-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.profile-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Logout */
 .logout-btn {
   margin-top: 2rem;
   padding: 10px 20px;
@@ -20,50 +45,26 @@
   background-color: #d9363e;
 }
 
+/* Job Form */
 .job-form {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.job-form input,
-.job-form select {
-  padding: 0.5rem;
-  width: 200px;
-}
-
-@media (max-width: 600px) {
-  .job-form {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .job-form input,
-  .job-form select {
-    width: 90%;
-  }
-
-  .dashboard-filters {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .dashboard-filters input,
-  .dashboard-filters select {
-    width: 90%;
-  }
-
-  .job-card {
-    width: 90%;
-  }
-}
 .job-form input,
 .job-form select {
   margin: 0.5rem;
   padding: 0.5rem;
   width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 .job-form button {
@@ -79,49 +80,7 @@
   background-color: #1474d4;
 }
 
-.job-list {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.job-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.job-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.job-actions button {
-  transition: background-color 0.2s ease;
-}
-.profile-link {
-  display: inline-block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.form-group {
-  margin-bottom: 12px;
-}
-.job-card {
-  width: 300px;
-  padding: 1rem;
-  margin: 1rem 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  text-align: left;
-  background-color: #f9f9f9;
-}
-
-.job-actions {
-  margin-top: 0.5rem;
-  display: flex;
-  gap: 10px;
-}
+/* Filters */
 .dashboard-filters {
   margin-top: 2rem;
   display: flex;
@@ -133,14 +92,38 @@
 .dashboard-filters select {
   padding: 0.5rem;
   width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.job-stats {
+/* Job List */
+.job-list {
   margin-top: 2rem;
-  text-align: center;
-  background-color: #f0f8ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.job-card {
+  width: 300px;
   padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
   border-radius: 8px;
+  text-align: left;
+  background-color: #f9f9f9;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.job-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Job Actions */
+.job-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 10px;
 }
 .job-actions button {
   padding: 6px 12px;
@@ -148,7 +131,75 @@
   border-radius: 4px;
   cursor: pointer;
   background-color: #f0f0f0;
+  transition: background-color 0.2s ease;
 }
 .job-actions button:hover {
   background-color: #e0e0e0;
+}
+
+/* Stats */
+.job-stats {
+  margin-top: 2rem;
+  text-align: center;
+  background-color: #f0f8ff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Resume Match */
+.resume-match-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.resume-match-section h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: #2e7d32;
+}
+
+.resume-match-section p {
+  margin-bottom: 1rem;
+  color: #4caf50;
+}
+
+.resume-match-btn {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.resume-match-btn:hover {
+  background-color: #388e3c;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .job-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .job-form input,
+  .job-form select,
+  .dashboard-filters input,
+  .dashboard-filters select {
+    width: 90%;
+  }
+
+  .dashboard-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .job-card {
+    width: 90%;
+  }
 }
