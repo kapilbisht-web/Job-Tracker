@@ -25,26 +25,25 @@ const Dashboard = () => {
     Rejected: '❌',
   };
 
-  const fetchJobs = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user?.token) return navigate('/login');
+ const fetchJobs = async () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user?.token) return navigate('/login');
 
-    const config = {
-      headers: { Authorization: `Bearer ${user.token}` },
-    };
-
-    try {
-      const res = await axiosInstance.get(`/api/jobs?page=${page}&limit=5&search=${search}&status=${filter}`, config);
-      setJobs((prev) => {
-        const newJobs = res.data.jobs.filter((j) => !prev.some((p) => p._id === j._id));
-        return [...prev, ...newJobs];
-      });
-      setHasMore(jobs.length + res.data.jobs.length < res.data.total);
-    } catch (err) {
-      toast.error('Failed to fetch jobs');
-    }
+  const config = {
+    headers: { Authorization: `Bearer ${user.token}` },
   };
 
+  try {
+    const res = await axiosInstance.get(`/api/jobs?page=${page}&limit=5&search=${search}&status=${filter}`, config);
+    setJobs((prev) => {
+      const newJobs = res.data.jobs.filter((j) => !prev.some((p) => p._id === j._id));
+      setHasMore(prev.length + newJobs.length < res.data.total);
+      return [...prev, ...newJobs];
+    });
+  } catch (err) {
+    toast.error('Failed to fetch jobs');
+  }
+};
   useEffect(() => {
     fetchJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps

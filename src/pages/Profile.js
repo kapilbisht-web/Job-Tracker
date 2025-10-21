@@ -11,7 +11,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (!user?.token) return navigate('login'); // ✅ Changed to relative path
+      if (!user?.token) return navigate('/login'); // ✅ Absolute path
 
       const config = {
         headers: { Authorization: `Bearer ${user.token}` },
@@ -28,8 +28,8 @@ const Profile = () => {
     fetchProfile();
   }, [navigate]);
 
-  const handleLogout = () => navigate('logout'); // ✅ Changed
-  const handleEditProfile = () => navigate('edit-profile'); // ✅ Changed
+  const handleLogout = () => navigate('/logout'); // ✅ Absolute path
+  const handleEditProfile = () => navigate('/edit-profile'); // ✅ Absolute path
 
   return (
     <div className="profile-container">
@@ -46,7 +46,7 @@ const Profile = () => {
         Logout
       </button>
 
-      <button onClick={() => navigate('dashboard')} className="back-btn"> {/* ✅ Changed */}
+      <button onClick={() => navigate('/dashboard')} className="back-btn"> {/* ✅ Absolute path */}
         Back to Dashboard
       </button>
     </div>
