@@ -47,9 +47,8 @@ const AppRouter = () => {
 
 // ✅ Correct basename for GitHub Pages
 export default function WrappedRouter() {
-  const basename =
-    process.env.NODE_ENV === 'production' ? '/job-tracker-frontend' : '/';
-
+ const basename =
+  process.env.NODE_ENV === 'production' ? '/Job-Tracker' : '/';
   return (
     <BrowserRouter basename={basename}>
       <AppRouter />
