@@ -19,7 +19,7 @@ const Login = () => {
     console.log('Login form:', form);
     localStorage.setItem('user', JSON.stringify(res.data));
     toast.success(`Welcome back, ${res.data.name}!`);
-    setTimeout(() => navigate('/dashboard'), 100); // ✅ Absolute path
+    setTimeout(() => navigate('/dashboard')); // ✅ Absolute path
   } catch (err) {
     toast.error(err.response?.data?.message || 'Login failed');
     console.error(err);
