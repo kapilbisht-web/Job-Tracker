@@ -16,7 +16,7 @@ const Login = () => {
   e.preventDefault();
   try {
     const res = await axiosInstance.post('/api/auth/login', form);
-    console.log('Login form:', form);
+   
     localStorage.setItem('user', JSON.stringify(res.data));
     toast.success(`Welcome back, ${res.data.name}!`);
     setTimeout(() => navigate('/dashboard')); // ✅ Absolute path
